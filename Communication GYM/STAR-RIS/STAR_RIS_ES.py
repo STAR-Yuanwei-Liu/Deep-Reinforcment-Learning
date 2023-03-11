@@ -261,10 +261,10 @@ class STAR_RIS_Env(gym.Env):
         # determain the T coefficient based on R coefficient
         action_T = copy.deepcopy(action[2*self.N:3*self.N])
         action_T[action_T >= 0] = 1 * math.pi/2
-        action_T[action_T >= 0] = 1 * math.pi/2
+        action_T[action_T < 0] = -1 * math.pi/2
         New_theta_pi_T = New_theta_pi_R + action_T
         New_beta_T = np.sqrt(1-New_beta_R**2)
-        self.Theta_T = np.cos(New_theta_pi_T) * New_beta_T + np.sin(New_theta_pi_T) * New_beta_T * 1j
+        self.theta_T = np.cos(New_theta_pi_T) * New_beta_T + np.sin(New_theta_pi_T) * New_beta_T * 1j
         self.Theta_eye_T = np.eye(self.N) * self.theta_T
 
         # BS beamforming w
